@@ -1,12 +1,37 @@
-from flask import Flask
+from fastapi import FastAPI
+import os
 
-app = Flask(__name__)
+app = FastAPI()
 
-@app.route('/')
-def hello_world():
-    return 'Microservicio Python - Evaluación DevOps'
+# --- CONFIGURACIÓN (HOTFIX) ---
+def verificar_configuracion():
+    """Simulamos una corrección crítica para producción."""
+    api_key = os.getenv("API_KEY", "DEVELOPMENT_MODE")
+    if api_key == "DEVELOPMENT_MODE":
+        print("ALERTA: Iniciando en modo desarrollo. Configure API_KEY en producción.")
+    return True
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+# --- ENDPOINTS ---
 
-print("HOLA MUNDO ")
+@app.get("/")
+def read_root():
+    return {"message": "Microservicio funcionando para Evaluación Parcial 1"}
+
+@app.get("/status")
+def get_status():
+    return {"status": "online", "version": "1.0.0"}
+
+# --- SEGUNDA FEATURE ---
+@app.get("/health")
+def health_check():
+    """Endpoint de salud del microservicio."""
+    return {
+        "status": "UP",
+        "version": "1.0.1",
+        "environment": "production"
+    }
+
+# --- BLOQUE PRINCIPAL ---
+if __name__ == "__main__":
+    verificar_configuracion()
+    print("Microservicio listo para ser ejecutado.")
