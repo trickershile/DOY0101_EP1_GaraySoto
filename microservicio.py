@@ -34,4 +34,4 @@ def health_check():
 # --- BLOQUE PRINCIPAL ---
 if __name__ == "__main__":
     verificar_configuracion()
-    print("Microservicio listo para ser ejecutado.")
+    print("Microservicio listo para ser ejecutado con uvicorn.")
