@@ -1,11 +1,12 @@
-from fastapi import FastAPI
+from flask import Flask
 
-app = FastAPI()
+app = Flask(__name__)
 
-@get("/")
-def read_root():
-    return {"message": "Microservicio funcionando para Evaluación Parcial 1"}
+@app.route('/')
+def hello_world():
+    return 'Microservicio Python - Evaluación DevOps'
 
-@get("/status")
-def get_status():
-    return {"status": "online", "version": "1.0.0"}
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+
+print("HOLA MUNDO ")
